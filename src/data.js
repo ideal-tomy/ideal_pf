@@ -49,7 +49,7 @@ export const DEMOS = [
     lead:'撮る→整える→日報・報告書。写真分類と報告書下書きをまとめて体験できます。',
     one:'現場写真から日報・報告書の流れを、3つの体験で見られます。',
     audience:'現場と事務',
-    url:'https://construction-demo-two.vercel.app/',
+    url:'https://construction-demo-six.vercel.app/',
     linkState:'available',
     experienceNote:'サンプル体験です。実画像のAI解析は回数・費用の上限があります。',
     when:'現場で撮った写真を、事務所で報告書に貼り直している会社を想定しています。写真の整理から下書きまでを画面で追えます。',
