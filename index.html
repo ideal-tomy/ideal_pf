@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0a0710">
+<meta name="description" content="ideal合同会社の公開デモ紹介">
+<title>ideal / つくったもの</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="appbar">
+  <div class="inner">
+    <div class="idrow">
+      <div class="me">
+        <div class="avatar">T</div>
+        <div>
+          <div class="name">ideal合同会社</div>
+          <div class="sub">横浜 / Web・業務システム</div>
+        </div>
+      </div>
+      <div class="count"><span>公開中</span><b>12</b><i>本</i></div>
+    </div>
+    <div class="tiles">
+      <button class="tile" data-cat="construction">
+        <div class="head"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14a9 9 0 0 1 18 0"/><path d="M2 14h20v3H2z"/><path d="M12 5v9"/><path d="M9 5.6 12 5l3 .6"/></svg><em class="dot">4</em></div>
+        <div class="lb">建設</div>
+      </button>
+      <button class="tile" data-cat="factory">
+        <div class="head"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V10l5 3V10l5 3V10l5 3v7z"/><path d="M3 20h18"/><path d="M6 6V4"/></svg><em class="dot">3</em></div>
+        <div class="lb">製造</div>
+      </button>
+      <button class="tile" data-cat="care">
+        <div class="head"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-9.2A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7 2.8C19 15.6 12 20 12 20z"/></svg><em class="dot">3</em></div>
+        <div class="lb">介護</div>
+      </button>
+      <button class="tile" data-cat="gov">
+        <div class="head"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M6 20V9l6-4 6 4v11"/><path d="M10 20v-5h4v5"/></svg><em class="dot">2</em></div>
+        <div class="lb">自治体</div>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="app">
+  <div class="spacer"></div>
+  <section class="view on" id="v-works"><div class="cards" id="cards"></div>
+    <div class="sec-lb">そのほか</div>
+    <div class="list" id="others"></div>
+  </section>
+
+  <section class="view" id="v-cat">
+    <div class="block rv"><h3>業種から探す</h3><p>同じ仕組みでも、業種によって呼び方も帳票も変わります。近い業種のものから見てください。</p></div>
+    <div class="list" style="margin-top:12px">
+      <a class="item rv" href="#"><span class="th" style="background:#8b2088"></span><span><span class="tt">建設</span><span class="cc">写真・報告書・手配</span></span><span class="go">4</span></a>
+      <a class="item rv" href="#"><span class="th" style="background:#4b2a94"></span><span><span class="tt">製造</span><span class="cc">点検・検査・品質</span></span><span class="go">3</span></a>
+      <a class="item rv" href="#"><span class="th" style="background:#c31f5c"></span><span><span class="tt">医療・介護</span><span class="cc">記録・引き継ぎ</span></span><span class="go">3</span></a>
+      <a class="item rv" href="#"><span class="th" style="background:#1c6270"></span><span><span class="tt">自治体</span><span class="cc">施設・防災</span></span><span class="go">2</span></a>
+      <a class="item rv" href="#"><span class="th" style="background:#2b3fa0"></span><span><span class="tt">業種を選ばない</span><span class="cc">帳票・試算</span></span><span class="go">2</span></a>
+    </div>
+  </section>
+
+  <section class="view" id="v-how">
+    <div class="block rv"><h3>先に動くものを見てもらいます</h3><p>提案書だけでは、できあがるものが人によって違って見えます。そこで、話を聞いたあとに動く画面を先につくって、それを見ながら決めていきます。</p></div>
+    <div class="block rv">
+      <div class="step"><span class="no">1</span><span class="tx"><b>いまのやり方を聞く</b><p>誰が、何を、どの紙に書いているかを教えてください。1時間ほどです。</p></span></div>
+      <div class="step"><span class="no">2</span><span class="tx"><b>動く画面をつくる</b><p>実際に触れる画面をこちらで用意します。ここまでは費用をいただきません。</p></span></div>
+      <div class="step"><span class="no">3</span><span class="tx"><b>触って直す</b><p>現場の方に触ってもらい、違うところを直します。ここで進めるか決めてください。</p></span></div>
+    </div>
+  </section>
+
+  <section class="view" id="v-me">
+    <div class="block rv"><h3>ideal合同会社</h3><p>横浜で、Webサイトと業務システムをつくっています。中小企業の現場で使う仕組みを、小さく始めて直しながら育てる進め方が得意です。</p></div>
+    <div class="list" style="margin-top:12px">
+      <a class="item rv" href="#"><span class="th" style="background:#241d33"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg></span><span><span class="tt">相談する</span><span class="cc">メールで受け付けています</span></span><span class="go">›</span></a>
+      <a class="item rv" href="#"><span class="th" style="background:#241d33"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></span><span><span class="tt">会社のサイト</span><span class="cc">ideal合同会社</span></span><span class="go">›</span></a>
+    </div>
+  </section>
+</div>
+
+<nav class="tabbar">
+  <button class="tab on" data-view="v-works"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></svg><span>つくったもの</span></button>
+  <button class="tab" data-view="v-cat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>業種</span></button>
+  <button class="tab" data-view="v-how"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v6c0 5 3.4 7.4 8 8 4.6-.6 8-3 8-8V7z"/><path d="m9 12 2 2 4-4"/></svg><span>進め方</span></button>
+  <button class="tab" data-view="v-me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5 20c0-3.6 3.1-6.2 7-6.2s7 2.6 7 6.2"/></svg><span>ideal</span></button>
+</nav>
+
+<div class="detail" id="detail"><div class="d-in" id="dIn"></div></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
