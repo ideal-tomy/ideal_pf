@@ -28,7 +28,16 @@ function shotKeyOf(d) {
   return normalizeShot(shots[0]).key
 }
 
-/** トップ／ヒーロー用。写真は埋め込まず骨格だけ。 */
+function firstShotImage(d) {
+  var shots = d.shots || []
+  for (var i = 0; i < shots.length; i++) {
+    var n = normalizeShot(shots[i])
+    if (n.image) return n
+  }
+  return null
+}
+
+/** トップ／ヒーロー用。実画像があれば端末内に切り出し、なければ骨格モック。 */
 var APP_MOCKS = {
   photos:
     '<div class="amock amock-photos">'
@@ -64,10 +73,19 @@ var APP_MOCKS = {
 }
 
 function mockHtml(d) {
+  var shot = firstShotImage(d)
+  if (shot) {
+    return '<div class="device" aria-hidden="true"><img class="device-shot" src="'
+      + esc(shot.image) + '" alt="" loading="lazy" width="186" height="280"></div>'
+  }
   var kind = d.mock || shotKeyOf(d)
   if (APP_MOCKS[kind]) return APP_MOCKS[kind]
   var key = shotKeyOf(d)
-  return '<div class="body scr">' + (SCR[key] || SCR.card) + '</div>'
+  return '<div class="scr">' + (SCR[key] || SCR.card) + '</div>'
+}
+
+function mockBody(d) {
+  return '<div class="body' + (firstShotImage(d) ? ' has-shot' : '') + '">' + mockHtml(d) + '</div>'
 }
 
 function shotBodyHtml(s) {
@@ -111,7 +129,7 @@ var featured = featuredDemos()
 cardsBox.innerHTML = featured.map(function (d, i) {
   return '<button type="button" class="card ' + esc(d.cls) + '" data-id="' + esc(d.id) + '" style="--i:' + i + '">'
     + '<div class="dim"></div>'
-    + '<div class="mock"><div class="body">' + mockHtml(d) + '</div></div>'
+    + '<div class="mock">' + mockBody(d) + '</div>'
     + '<div class="eyebrow"><span class="chip">' + (ICON[d.icon] || ICON.doc) + '</span>' + esc(categoryLabel(d.category)) + '</div>'
     + '<h2>' + d.title + '</h2>'
     + '<p class="lead">' + esc(d.lead) + '</p>'
@@ -296,7 +314,7 @@ function buildDetail(d) {
   return ''
     + '<div class="d-hero ' + esc(d.cls) + '">'
     +   '<button type="button" class="back" id="dBack" aria-label="紹介を閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>'
-    +   '<div class="art"><div class="body">' + mockHtml(d) + '</div></div>'
+    +   '<div class="art">' + mockBody(d) + '</div>'
     + '</div>'
     + '<div class="d-head">'
     +   '<div class="d-icon ' + esc(d.cls) + '">' + (ICON[d.icon] || ICON.doc) + '</div>'
