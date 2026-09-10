@@ -106,17 +106,21 @@ async function captureQuality(page, dir) {
 }
 
 async function captureKaigo(page, dir) {
-  await page.goto('https://kaigo-handoff-demo.vercel.app/memo', { waitUntil: 'networkidle', timeout: 45000 })
+  await page.goto('https://kaigo-handoff-demo.vercel.app/karte', { waitUntil: 'networkidle', timeout: 45000 })
   await page.waitForTimeout(700)
   await softClick(page, page.getByText('はじめる', { exact: false }))
   await softClick(page, page.getByText('サンプル', { exact: false }))
+  await softClick(page, page.getByRole('button', { name: '録音の同意' }))
+  await page.waitForTimeout(400)
+  await softClick(page, page.getByRole('button', { name: '録音' }))
+  await page.waitForTimeout(1400)
   await shot(page, path.join(dir, '01.jpg'))
 
   await page.goto('https://kaigo-handoff-demo.vercel.app/karte', { waitUntil: 'networkidle', timeout: 45000 })
   await page.waitForTimeout(700)
   await shot(page, path.join(dir, '02.jpg'))
 
-  await page.goto('https://kaigo-handoff-demo.vercel.app/records', { waitUntil: 'networkidle', timeout: 45000 })
+  await page.goto('https://kaigo-handoff-demo.vercel.app/nippo', { waitUntil: 'networkidle', timeout: 45000 })
   await page.waitForTimeout(700)
   await shot(page, path.join(dir, '03.jpg'))
 }

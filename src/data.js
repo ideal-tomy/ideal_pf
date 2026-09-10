@@ -144,7 +144,7 @@ export const DEMOS = [
     can:['申し送りメモの整理と確認ができます','面談・日報の画面に進めます','記録一覧への反映を確認できます'],
     planned:['要確認項目→提出→一覧の実画面検証'],
     shots:[
-      { key:'form', cap:'メモを入れる', image:'/images/demos/kaigo-handoff/01.jpg' },
+      { key:'form', cap:'録音する', image:'/images/demos/kaigo-handoff/01.jpg' },
       { key:'list', cap:'面談を確認', image:'/images/demos/kaigo-handoff/02.jpg' },
       { key:'card', cap:'日報を見る', image:'/images/demos/kaigo-handoff/03.jpg' }
     ],
