@@ -2,7 +2,12 @@
 
 ideal合同会社の公開デモ紹介ページ（Vite 静的ホスト）。
 
-見た目と操作は元の HTML プロトタイプのままです。外部デモの URL は後から `src/data.js` の `url` に入れます。今は空なので、詳細画面の「デモを開く」は無効表示になります。
+- トップ: おすすめ大カード 5件
+- 全件一覧: 掲載 28件（通常行）
+- 紹介: 全画面オーバーレイ（`?demo=<id>` で共有可）
+- 外部デモ URL は `src/data.js` の `url` / `linkState` で管理
+
+本番: https://ideal-pf.vercel.app
 
 ## 開発
 
@@ -18,16 +23,36 @@ npm run build
 npm run preview
 ```
 
-## 外部 URL の入れ方
+## データの直し方
 
-`src/data.js` の各デモの `url` を公開先に差し替えるだけです。
+公開用データは [`src/data.js`](src/data.js) のみ。
+
+| フィールド | 意味 |
+|---|---|
+| `featuredOrder` | トップ大カードの並び（1–5）。なければ一覧のみ |
+| `url` | 本番の https URL。未確認は空文字 |
+| `linkState` | `available`（開ける）/ `preparing`（紹介のみ） |
+| `experienceNote` | CTA 横の注意（固定サンプル・認証など） |
+| `can` / `planned` | 今できること / 今後追加すること |
+
+体験リンクを足す例:
 
 ```js
 url: 'https://example.vercel.app/',
+linkState: 'available',
 ```
 
-空のままだと詳細の CTA は押せません。
+内部の改善優先度は [`docs/demo-improvements.md`](docs/demo-improvements.md)。
+
+## URL パラメータ
+
+| 例 | 意味 |
+|---|---|
+| `/?demo=construction-record` | その紹介を開く |
+| `/?view=all` | 全件一覧 |
+| `/?view=all&cat=factory` | 製造・設備で絞り込み |
+| `/?view=all&q=シフト` | 検索 |
 
 ## デプロイ
 
-Vercel（Framework Preset: Vite、Output: `dist`）。GitHub の `main` に push すると本番へ出ます。
+Vercel（Vite / `dist`）。`main` への push で本番反映。
