@@ -43,7 +43,7 @@ export const DEMOS = [
   {
     id:'construction-record', listed:true, featuredOrder:1,
     category:'construction', tile:'construction', tags:['建設','写真','報告書'],
-    cls:'c1', icon:'camera',
+    cls:'c1', icon:'camera', mock:'photos',
     title:'現場の写真から<br>報告書をつくる',
     plain:'現場の写真から報告書をつくる',
     lead:'撮る→整える→日報・報告書。写真分類と報告書下書きをまとめて体験できます。',
@@ -55,13 +55,17 @@ export const DEMOS = [
     when:'現場で撮った写真を、事務所で報告書に貼り直している会社を想定しています。写真の整理から下書きまでを画面で追えます。',
     can:['写真分類・報告書・現場オペの入口から体験を選べます','写真を選んで工種・場所を付けられます','報告書の下書きまで進めます'],
     planned:['公開時の利用回数・費用上限の明示'],
-    shots:[['photos','写真を選ぶ'],['list','整える'],['form','報告書']],
+    shots:[
+      { key:'photos', cap:'写真を整える', image:'/images/demos/construction-record/01.jpg' },
+      { key:'form', cap:'報告書', image:'/images/demos/construction-record/02.jpg' },
+      { key:'list', cap:'現場オペ', image:'/images/demos/construction-record/03.jpg' }
+    ],
     relatedIds:['field-dandori','contractor-matching','approval-inspection']
   },
   {
     id:'customer-support', listed:true, featuredOrder:2,
     category:'cross-industry', tile:null, tags:['サポート','小売','問い合わせ'],
-    cls:'c3', icon:'chat',
+    cls:'c3', icon:'chat', mock:'chat',
     title:'業種別の案内<br>チャットを試す',
     plain:'業種別の案内チャットを試す',
     lead:'定型の問い合わせに、根拠付きの案内を返す流れを体験できます。',
@@ -73,13 +77,17 @@ export const DEMOS = [
     when:'よくある問い合わせを、毎回同じ説明で返している店舗や窓口を想定しています。',
     can:['業種カードから体験を始められます','根拠付きの案内応答を確認できます','サンプル応答と実AIの切り替えを見られます'],
     planned:['業種カードのキーボード操作の仕上げ'],
-    shots:[['card','業種を選ぶ'],['list','質問する'],['form','案内が返る']],
+    shots:[
+      { key:'card', cap:'業種を選ぶ', image:'/images/demos/customer-support/01.jpg' },
+      { key:'list', cap:'質問する', image:'/images/demos/customer-support/02.jpg' },
+      { key:'form', cap:'案内が返る', image:'/images/demos/customer-support/03.jpg' }
+    ],
     relatedIds:['assist-reception','internal-knowledge','sns-post']
   },
   {
     id:'shift', listed:true, featuredOrder:3,
     category:'food', tile:null, tags:['飲食','シフト','割当'],
-    cls:'c4', icon:'cal',
+    cls:'c4', icon:'cal', mock:'shift',
     title:'希望から<br>シフト案をつくる',
     plain:'希望からシフト案をつくる',
     lead:'希望→割当案→確定→欠勤対応までの流れを、ルール割当のデモとして体験できます。',
@@ -91,13 +99,17 @@ export const DEMOS = [
     when:'紙や表計算でシフトを組み、欠勤のたびに組み直している店舗を想定しています。',
     can:['希望の入力から割当案を作れます','確定と欠勤対応の流れを追えます','スマホでも主要操作を触れます'],
     planned:['関連する試算リンクの不備確認'],
-    shots:[['list','希望を入れる'],['check','案を見る'],['form','確定する']],
+    shots:[
+      { key:'list', cap:'希望を入れる', image:'/images/demos/shift/01.jpg' },
+      { key:'check', cap:'案を見る', image:'/images/demos/shift/02.jpg' },
+      { key:'form', cap:'確定する', image:'/images/demos/shift/03.jpg' }
+    ],
     relatedIds:['expense-optimize','customer-support','assist-reception']
   },
   {
     id:'quality-incident', listed:true, featuredOrder:4,
     category:'factory', tile:'factory', tags:['製造','品質','是正'],
-    cls:'c2', icon:'gear',
+    cls:'c2', icon:'gear', mock:'incident',
     title:'品質インシデントを<br>画面で追う',
     plain:'品質インシデントを画面で追う',
     lead:'発見→原因候補→是正・承認まで、架空データで画面構成を確認できます。',
@@ -109,13 +121,17 @@ export const DEMOS = [
     when:'品質トラブルの記録が紙やメールに散らばり、是正まで見えにくい工場を想定しています。',
     can:['発見から是正・承認までの画面を辿れます','原因候補と架空データを確認できます','コンソール上の状態表示を見られます'],
     planned:['ナビと画面対応の修正','PDF保存・提出の実動作'],
-    shots:[['list','発見'],['card','原因候補'],['form','是正・承認']],
+    shots:[
+      { key:'list', cap:'発見', image:'/images/demos/quality-incident/01.jpg' },
+      { key:'card', cap:'原因候補', image:'/images/demos/quality-incident/02.jpg' },
+      { key:'form', cap:'是正・承認', image:'/images/demos/quality-incident/03.jpg' }
+    ],
     relatedIds:['manufacturing-compare','cause-demo','approval-inspection']
   },
   {
     id:'kaigo-handoff', listed:true, featuredOrder:5,
     category:'care', tile:'care', tags:['介護','申し送り','面談','日報'],
-    cls:'c4', icon:'user',
+    cls:'c4', icon:'user', mock:'handoff',
     title:'申し送り・面談・<br>日報をまとめる',
     plain:'申し送り・面談・日報をまとめる',
     lead:'時刻ごとのメモをまとめ、確認して記録する体験です。面談・日報・一覧もあります。',
@@ -127,7 +143,11 @@ export const DEMOS = [
     when:'申し送りを紙や口頭だけに頼り、後から書き直している事業所を想定しています。',
     can:['申し送りメモの整理と確認ができます','面談・日報の画面に進めます','記録一覧への反映を確認できます'],
     planned:['要確認項目→提出→一覧の実画面検証'],
-    shots:[['form','メモを入れる'],['list','確認する'],['card','一覧で見る']],
+    shots:[
+      { key:'form', cap:'メモを入れる', image:'/images/demos/kaigo-handoff/01.jpg' },
+      { key:'list', cap:'面談を確認', image:'/images/demos/kaigo-handoff/02.jpg' },
+      { key:'card', cap:'日報を見る', image:'/images/demos/kaigo-handoff/03.jpg' }
+    ],
     relatedIds:['voice-karte-simple','kaigo-3role','childcare']
   },
   {

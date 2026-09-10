@@ -194,6 +194,42 @@ a{color:inherit;text-decoration:none;}
 .shots::-webkit-scrollbar{display:none;}
 .shot{flex:none;width:186px;border-radius:20px;padding:12px 11px;background:#120d1c;border:1px solid var(--line);}
 .shot .cap{font-size:11px;color:var(--tx-2);margin-top:10px;line-height:1.6;}
+.shot-img{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;object-position:top center;border-radius:14px;background:#0d0a15;}
+
+/* アプリ風モック（トップ／ヒーロー） */
+.mock .body,.d-hero .art .body{
+  background:#0d0a15;border:1px solid rgba(255,255,255,.2);border-radius:20px;
+  padding:11px 10px;box-shadow:0 26px 52px rgba(0,0,0,.55);overflow:hidden;
+}
+.amock{color:#fff;}
+.amock-bar{display:flex;align-items:center;gap:6px;margin-bottom:9px;}
+.amock-bar i{width:9px;height:9px;border-radius:3px;background:rgba(255,255,255,.55);display:block;}
+.amock-bar u{flex:1;height:7px;border-radius:4px;background:rgba(255,255,255,.22);text-decoration:none;}
+.amock-btn{margin-top:8px;height:22px;border-radius:11px;background:rgba(255,255,255,.85);}
+.amock-photos .amock-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;}
+.amock-photos .amock-grid b{display:block;padding-top:84%;border-radius:7px;background:rgba(255,255,255,.16);}
+.amock-photos .amock-grid b:nth-child(2){background:rgba(255,255,255,.3);}
+.amock-photos .amock-grid b:nth-child(5){background:rgba(255,255,255,.26);}
+.amock-chat .amock-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;}
+.amock-chat .amock-cards span{display:block;padding-top:70%;border-radius:8px;background:rgba(255,255,255,.14);}
+.amock-chat .amock-cards span:nth-child(2){background:rgba(255,255,255,.28);}
+.amock-bubble{height:18px;border-radius:10px 10px 10px 4px;background:rgba(255,255,255,.16);margin-bottom:6px;width:78%;}
+.amock-bubble-me{margin-left:auto;border-radius:10px 10px 4px 10px;background:rgba(255,255,255,.28);width:62%;}
+.amock-week{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:6px;}
+.amock-week em{display:block;height:8px;border-radius:3px;background:rgba(255,255,255,.2);}
+.amock-cells{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;}
+.amock-cells s{display:block;padding-top:100%;border-radius:5px;background:rgba(255,255,255,.1);text-decoration:none;}
+.amock-cells s.on{background:rgba(255,35,128,.55);}
+.amock-row{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border-radius:9px;padding:8px;margin-bottom:6px;}
+.amock-row s{width:20px;height:20px;border-radius:6px;background:rgba(255,255,255,.28);flex:none;text-decoration:none;}
+.amock-row em{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.34);}
+.amock-row.hot{background:rgba(255,35,128,.22);}
+.amock-row.hot s{background:rgba(255,35,128,.7);}
+.amock-note{height:48px;border-radius:10px;background:rgba(255,255,255,.1);margin-bottom:8px;}
+.amock-chk{display:flex;align-items:center;gap:7px;padding:7px 8px;border-radius:9px;background:rgba(255,255,255,.08);margin-bottom:6px;}
+.amock-chk s{width:14px;height:14px;border-radius:4px;border:1.5px solid rgba(255,255,255,.5);flex:none;text-decoration:none;}
+.amock-chk.on s{background:#38d39f;border-color:#38d39f;}
+.amock-chk em{flex:1;height:6px;border-radius:3px;background:rgba(255,255,255,.3);}
 
 .d-sec{padding:0 16px;margin-top:30px;}
 .d-sec h3{font-size:15px;font-weight:900;}

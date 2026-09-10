@@ -17,6 +17,67 @@ function hasLink(d) {
   return d.linkState === 'available' && d.url && /^https:\/\//i.test(d.url)
 }
 
+function normalizeShot(s) {
+  if (Array.isArray(s)) return { key: s[0], cap: s[1], image: null }
+  return { key: s.key || 'card', cap: s.cap || '', image: s.image || null }
+}
+
+function shotKeyOf(d) {
+  var shots = d.shots || []
+  if (!shots.length) return 'card'
+  return normalizeShot(shots[0]).key
+}
+
+/** トップ／ヒーロー用。写真は埋め込まず骨格だけ。 */
+var APP_MOCKS = {
+  photos:
+    '<div class="amock amock-photos">'
+    + '<div class="amock-bar"><i></i><u></u></div>'
+    + '<div class="amock-grid"><b></b><b></b><b></b><b></b><b></b><b></b></div>'
+    + '<div class="amock-btn"></div></div>',
+  chat:
+    '<div class="amock amock-chat">'
+    + '<div class="amock-bar"><i></i><u></u></div>'
+    + '<div class="amock-cards"><span></span><span></span><span></span></div>'
+    + '<div class="amock-bubble"></div>'
+    + '<div class="amock-bubble amock-bubble-me"></div></div>',
+  shift:
+    '<div class="amock amock-shift">'
+    + '<div class="amock-bar"><i></i><u></u></div>'
+    + '<div class="amock-week"><em></em><em></em><em></em><em></em><em></em><em></em><em></em></div>'
+    + '<div class="amock-cells"><s></s><s class="on"></s><s></s><s class="on"></s><s></s><s></s><s class="on"></s></div>'
+    + '<div class="amock-btn"></div></div>',
+  incident:
+    '<div class="amock amock-incident">'
+    + '<div class="amock-bar"><i></i><u></u></div>'
+    + '<div class="amock-row hot"><s></s><em></em></div>'
+    + '<div class="amock-row"><s></s><em></em></div>'
+    + '<div class="amock-row"><s></s><em></em></div>'
+    + '<div class="amock-btn"></div></div>',
+  handoff:
+    '<div class="amock amock-handoff">'
+    + '<div class="amock-bar"><i></i><u></u></div>'
+    + '<div class="amock-note"></div>'
+    + '<div class="amock-chk on"><s></s><em></em></div>'
+    + '<div class="amock-chk"><s></s><em></em></div>'
+    + '<div class="amock-btn"></div></div>'
+}
+
+function mockHtml(d) {
+  var kind = d.mock || shotKeyOf(d)
+  if (APP_MOCKS[kind]) return APP_MOCKS[kind]
+  var key = shotKeyOf(d)
+  return '<div class="body scr">' + (SCR[key] || SCR.card) + '</div>'
+}
+
+function shotBodyHtml(s) {
+  var n = normalizeShot(s)
+  if (n.image) {
+    return '<img class="shot-img" src="' + esc(n.image) + '" alt="' + esc(n.cap) + '" loading="lazy" width="162" height="288">'
+  }
+  return '<div class="scr">' + (SCR[n.key] || SCR.card) + '</div>'
+}
+
 function badgeHtml(d) {
   if (hasLink(d)) return '<span class="badge badge-go">体験版あり</span>'
   return '<span class="badge badge-prep">紹介のみ</span>'
@@ -48,10 +109,9 @@ document.getElementById('moreAllCc').textContent = '掲載 ' + countListed() + '
 var cardsBox = document.getElementById('cards')
 var featured = featuredDemos()
 cardsBox.innerHTML = featured.map(function (d, i) {
-  var shotKey = d.shots && d.shots[0] ? d.shots[0][0] : 'card'
   return '<button type="button" class="card ' + esc(d.cls) + '" data-id="' + esc(d.id) + '" style="--i:' + i + '">'
     + '<div class="dim"></div>'
-    + '<div class="mock"><div class="body scr">' + (SCR[shotKey] || SCR.card) + '</div></div>'
+    + '<div class="mock"><div class="body">' + mockHtml(d) + '</div></div>'
     + '<div class="eyebrow"><span class="chip">' + (ICON[d.icon] || ICON.doc) + '</span>' + esc(categoryLabel(d.category)) + '</div>'
     + '<h2>' + d.title + '</h2>'
     + '<p class="lead">' + esc(d.lead) + '</p>'
@@ -220,9 +280,9 @@ function buildDetail(d) {
   if (d.audience) meta.push({ k:'使う人', v: d.audience.split('と')[0].split('・')[0], s: d.audience })
   meta.push({ k:'状態', v: hasLink(d) ? '体験可' : '紹介のみ', s: hasLink(d) ? 'リンクあり' : 'URL準備中' })
 
-  var shotKey = d.shots && d.shots[0] ? d.shots[0][0] : 'card'
   var shotsHtml = (d.shots || []).map(function (s) {
-    return '<div class="shot"><div class="scr">' + (SCR[s[0]] || SCR.card) + '</div><div class="cap">' + esc(s[1]) + '</div></div>'
+    var n = normalizeShot(s)
+    return '<div class="shot">' + shotBodyHtml(s) + '<div class="cap">' + esc(n.cap) + '</div></div>'
   }).join('')
 
   var canHtml = (d.can || []).map(function (c) { return '<div>' + esc(c) + '</div>' }).join('')
@@ -236,7 +296,7 @@ function buildDetail(d) {
   return ''
     + '<div class="d-hero ' + esc(d.cls) + '">'
     +   '<button type="button" class="back" id="dBack" aria-label="紹介を閉じる"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>'
-    +   '<div class="art"><div class="body scr" style="background:#0d0a15;border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:11px 10px;box-shadow:0 26px 52px rgba(0,0,0,.55)">' + (SCR[shotKey] || SCR.card) + '</div></div>'
+    +   '<div class="art"><div class="body">' + mockHtml(d) + '</div></div>'
     + '</div>'
     + '<div class="d-head">'
     +   '<div class="d-icon ' + esc(d.cls) + '">' + (ICON[d.icon] || ICON.doc) + '</div>'
