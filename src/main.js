@@ -1,4 +1,5 @@
 import './style.css'
+import { buildConstructionDetail } from './construction-story.js'
 import {
   ICON, SCR, CATEGORIES, DEMOS,
   featuredDemos, listedDemos, getDemoById,
@@ -152,6 +153,22 @@ var state = {
   demoId: null
 }
 var lastFocus = null
+var defaultTitle = document.title
+
+function setConstructionBackground(inert) {
+  document.querySelectorAll('body > :not(#detail):not(script)').forEach(function (el) {
+    el.inert = inert
+  })
+}
+
+function dismissDetail() {
+  if (state.demoId === 'construction-record') {
+    closeDetail({ skipUrl: true })
+    showView('v-all', { replace: true })
+    var card = document.querySelector('#allList [data-id="construction-record"]')
+    if (card) card.focus()
+  } else history.back()
+}
 
 function syncUrl(replace) {
   var params = new URLSearchParams()
@@ -293,6 +310,7 @@ function openCta(d) {
 }
 
 function buildDetail(d) {
+  if (d.id === 'construction-record') return buildConstructionDetail(d, esc)
   var meta = []
   meta.push({ k:'業種', v: categoryLabel(d.category).split('・')[0], s: categoryLabel(d.category) })
   if (d.audience) meta.push({ k:'使う人', v: d.audience.split('と')[0].split('・')[0], s: d.audience })
@@ -346,6 +364,9 @@ function openDetail(id, opts) {
   }
   lastFocus = document.activeElement
   state.demoId = id
+  setConstructionBackground(id === 'construction-record')
+  document.title = id === 'construction-record' ? d.plain + ' | ideal' : defaultTitle
+  dIn.classList.toggle('d-in-story', id === 'construction-record')
   dIn.innerHTML = buildDetail(d)
   detail.scrollTop = 0
   detail.classList.add('open')
@@ -359,6 +380,8 @@ function closeDetail(opts) {
   opts = opts || {}
   detail.classList.remove('open')
   document.body.classList.remove('lock')
+  setConstructionBackground(false)
+  document.title = defaultTitle
   state.demoId = null
   if (!opts.skipUrl) syncUrl(!!opts.replace)
   if (lastFocus && lastFocus.focus) {
@@ -379,6 +402,12 @@ document.getElementById('openAll').addEventListener('click', function () {
 })
 
 document.addEventListener('click', function (e) {
+  var storyJump = e.target.closest('[data-story-scroll]')
+  if (storyJump) {
+    var section = document.getElementById(storyJump.dataset.storyScroll)
+    if (section) { section.focus({ preventScroll: true }); section.scrollIntoView({ block: 'start' }) }
+    return
+  }
   var tile = e.target.closest('.tile')
   if (tile) {
     var tid = tile.dataset.tile
@@ -422,7 +451,7 @@ document.addEventListener('click', function (e) {
   if (goto) { openDetail(goto.dataset.goto); return }
 
   if (e.target.closest('#dBack')) {
-    history.back()
+    dismissDetail()
   }
 })
 
@@ -452,7 +481,7 @@ document.querySelectorAll('.tab').forEach(function (t) {
 document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape' && state.demoId) {
     e.preventDefault()
-    history.back()
+    dismissDetail()
   }
 })
 
