@@ -2,17 +2,19 @@
 
 公開用データ（`src/data.js`）と同じ ID で管理する。ブラウザには出さない。
 
+体験の磨き方（1デモ1フェーズ）: [demo-ux-brushup-playbook.md](demo-ux-brushup-playbook.md)
+
 更新順: demo本体を改善 → 体験確認 → `can` / `planned` / `url` / `linkState` を更新 → ビルド・反映。
 
 | demo ID | 紹介掲載 | URL状態 | 次の改善 | 優先 | 最終確認日 |
 |---|---|---|---|---|---|
 | construction-record | 掲載 | available | 実画像AIの回数・費用上限の明示 | 1 | 2026-09-10（URL応答） |
 | customer-support | 掲載 | available | 業種カードのキーボード操作 | 2 | 2026-09-10（URL応答） |
-| shift | 掲載 | available | ROIリンク不備の再確認 | 1 | 2026-09-10（URL応答） |
+| shift | 掲載 | available | UX-0〜5ブラッシュアップ完了（代表3手・ROI後段） | 完了 | 2026-09-12 |
 | quality-incident | 掲載 | available | ナビ対応・提出操作・スマホ完走 | 1 | 2026-09-10（URL応答） |
 | kaigo-handoff | 掲載 | available | 要確認→提出→一覧の実画面検証 | 1 | 2026-09-10（URL応答） |
 | manufacturing-compare | 掲載 | preparing | 本番URL用意と最終動作確認 | 2 | 2026-09-10（コード） |
-| internal-knowledge | 掲載 | available | 最初のガイド質問から回答へ | 1 | 2026-09-10（URL応答） |
+| internal-knowledge | 掲載 | available | UX-0〜5ブラッシュアップ完了（代表質問即答・根拠確認） | 完了 | 2026-09-13 |
 | product-flow-mfg | 掲載 | available | タイトル・回答後の導線 | 2 | 2026-09-10（URL応答） |
 | contractor-matching | 掲載 | available | 3機能完走・スマホ・ROI導線 | 2 | 2026-09-10（URL応答） |
 | assist-reception | 掲載 | preparing | デプロイとスマホ完走 | 2 | 2026-09-10（コード） |

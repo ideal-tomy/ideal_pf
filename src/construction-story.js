@@ -33,34 +33,18 @@ export const constructionStory = {
 }
 
 export function buildConstructionDetail(d, esc) {
-  const c = constructionStory
-  const link = (path, label, cls = 'story-link') => `<a class="${cls}" href="${esc(d.url.replace(/\/$/, '') + path)}" target="_blank" rel="noopener noreferrer">${esc(label)}<span aria-hidden="true"> ↗</span><span class="sr-only">（別タブで開きます）</span></a>`
-  const list = items => `<ul>${items.map(x => `<li>${esc(x)}</li>`).join('')}</ul>`
-  return `<article class="construction-story">
-    <header class="story-top"><button type="button" id="dBack" class="story-back" aria-label="紹介を閉じる">← デモ一覧に戻る</button><span>ideal / 建設</span></header>
-    <section class="story-hero" aria-labelledby="detailTitle">
-      <p class="story-eyebrow">${esc(c.eyebrow)}</p>
-      <h1 id="detailTitle">${esc(c.title)}</h1>
-      <p class="story-intro">${esc(c.intro)}</p>
-      <p class="story-audience">${esc(c.audience)}</p>
-      <div class="story-actions">${link('/photo', '写真整理から体験する', 'story-button')}<button type="button" class="story-link" data-story-scroll="construction-benefits">改善のポイントを読む ↓</button></div>
-      <p class="story-note">用意されたサンプルで体験できます。実写真の準備は不要です。</p>
-      <div class="story-flow" aria-label="体験の流れ"><span>写真を整える</span><b aria-hidden="true">→</b><span>下書きを確認</span><b aria-hidden="true">→</b><span>管理側へ</span></div>
-    </section>
-    <section class="story-section"><p class="story-eyebrow">こんなお困りごとはありませんか</p><h2>記録のための作業が、<br>現場の負担になっている。</h2>${list(c.problems)}</section>
-    <section class="story-section"><p class="story-eyebrow">解決の考え方</p><h2>「探す・書き写す」から、<br>「確認して仕上げる」へ。</h2><p>${esc(c.approach)}</p>
-      <div class="story-comparison"><div><h3>今の業務で起きがちなこと</h3>${list(c.before)}</div><div><h3>デモで見る改善の流れ</h3>${list(c.after)}</div></div>
-    </section>
-    <section id="construction-benefits" class="story-section" tabindex="-1"><p class="story-eyebrow">このデモで確かめられること</p><h2>自社の仕事を見直す、<br>4つのポイント。</h2><p>気になる作業から試しても、写真整理から順に進めても構いません。</p>
-      <ul class="story-benefits">${c.benefits.map((b, i) => `<li><span class="story-number">0${i + 1}</span><h3>${esc(b.title)}</h3><p>${esc(b.body)}</p><p class="story-look"><strong>見るポイント</strong>${esc(b.point)}</p>${link(b.path, b.link)}</li>`).join('')}</ul>
-      <p class="story-note">作業時間や手戻りの削減効果は、業務や運用によって異なります。デモでは改善の方法を確かめられます。</p>
-    </section>
-    <section class="story-section"><p class="story-eyebrow">初めての方へ</p><h2>まずは、3つの流れを<br>つなげてお試しください。</h2><p>最初の「写真整理」から進むと、報告書の下書き、提出、管理側の確認までをご覧いただけます。</p>
-      <ol class="story-steps">${c.steps.map((s, i) => `<li><figure><img src="${esc(s.image)}" alt="${esc(s.cap)}" loading="lazy" width="390" height="844"><figcaption>${esc(s.cap)}</figcaption></figure><div><span class="story-number">STEP 0${i + 1}</span><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div></li>`).join('')}</ol>
-      <div class="story-actions">${link('/photo', '写真整理から体験する', 'story-button')}${link('/report', '下書きだけ先に試す')}</div><p class="story-note">下書きから試す場合は、画面の「サンプルで試す」から日報サンプルを選んでください。スマートフォンでは「体験をはじめる」から進みます。</p>
-    </section>
-    <section class="story-section story-conditions"><h2>体験の範囲について</h2>${list(c.conditions)}</section>
-    <section class="story-section story-closing"><p class="story-eyebrow">自社で使うなら</p><h2>どの作業が変わると、<br>現場がもっと楽になるか。</h2><p>${esc(c.closing)}</p><div class="story-actions">${link('', '建設デモの入口を開く', 'story-button')}</div></section>
-    <nav class="story-section story-related" aria-label="関連する建設デモ"><h2>ほかの建設業務も見る</h2><button type="button" data-goto="field-dandori">電気工事の段取り <span aria-hidden="true">→</span></button><button type="button" data-goto="contractor-matching">協力業者の選定 <span aria-hidden="true">→</span></button></nav>
-  </article>`
+ const c = constructionStory
+ const link = (path, label, cls = 'story-link') => '<a class="'+cls+'" href="'+esc(d.url.replace(/\/$/, '')+path)+'" target="_blank" rel="noopener noreferrer">'+esc(label)+' <span aria-hidden="true">↗</span><span class="sr-only">（別タブで開きます）</span></a>'
+ const list = xs => '<ul>'+xs.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>'
+ const titles = ['探していた写真が、すぐそこに。','一から書く前に、下書きから。','現場の記録を、事務へつなぐ。']
+ const captions = ['工種で分類。名前もわかりやすく。','写真と文章を見直して、提出へ。','届いた日報と確認状況を、一か所で。']
+ return '<article class="construction-story">'
+ + '<header class="story-top"><button type="button" id="dBack" class="story-back" aria-label="紹介を閉じる">← 一覧へ</button><span>ideal / 建設・現場</span></header>'
+ + '<section class="story-hero" aria-labelledby="detailTitle"><div class="story-app-heading"><div class="story-app-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="9" y="12" width="30" height="27" rx="5"/><path d="m13 32 8-9 7 7 4-4 4 6M17 12V8h14v4"/><circle cx="31" cy="20" r="2"/></svg></div><div><p class="story-eyebrow">建設・現場の業務改善</p><h1 id="detailTitle">現場写真から、<br>報告書まで。</h1></div></div><p class="story-intro">写真を整え、下書きを確認。<br>現場と事務をつなぐ流れを、体験できます。</p><div class="story-actions">'+link('/photo','写真整理から体験する','story-button')+'<span class="story-availability">サンプルで体験<br>写真・APIキーの準備不要</span></div><div class="story-meta"><div><span>使う人</span><strong>現場・事務</strong></div><div><span>体験の流れ</span><strong>3ステップ</strong></div><div><span>下書きの仕上げ</span><strong>人が確認</strong></div></div></section>'
+ + '<section class="story-preview" aria-labelledby="previewTitle"><div class="story-section-heading"><h2 id="previewTitle">画面で見る、仕事の変化</h2><span>01 — 03 →</span></div><p class="story-swipe-hint">横にスワイプして、3つの画面を見る</p><div class="story-gallery" tabindex="0" role="region" aria-label="3つの実画面。横にスクロールできます">'+c.steps.map((s,i)=>'<figure class="story-preview-card story-preview-'+i+'"><figcaption><span class="story-number">0'+(i+1)+' / '+esc(s.title)+'</span><h3>'+esc(titles[i])+'</h3><p>'+esc(captions[i])+'</p></figcaption><img src="'+esc(s.image)+'" alt="'+esc(s.cap)+'" loading="'+(i===0?'eager':'lazy')+'" width="390" height="844"></figure>').join('')+'</div></section>'
+ + '<section class="story-section" id="construction-benefits"><p class="story-eyebrow">この体験でわかること</p><h2>探す・書き写す時間を、<br>確認して仕上げる時間へ。</h2><div class="story-changes">'+c.before.map((b,i)=>'<div><span class="story-number">0'+(i+1)+'</span><div><p>'+esc(b)+'</p><h3>'+esc(c.after[i])+'</h3></div><span aria-hidden="true">↗</span></div>').join('')+'</div><details class="story-disclosure"><summary>どんな業務の悩みに役立つ？</summary><div class="story-disclosure-body"><p>'+esc(c.audience)+'</p>'+list(c.problems)+'<p>'+esc(c.approach)+'</p></div></details><p class="story-note">削減効果は業務や運用によって異なります。このデモでは、改善の方法を確かめられます。</p></section>'
+ + '<section class="story-section"><p class="story-eyebrow">気になるところを、もう少し詳しく</p><h2>体験の見どころと進め方</h2><p class="story-section-lead">写真整理から順に進むと、提出後の確認までつながります。</p>'+c.steps.map((s,i)=>'<details class="story-disclosure"><summary><span class="story-number">0'+(i+1)+'</span>'+esc(s.title)+'</summary><div class="story-disclosure-body">'+(i===0?[c.benefits[0]]:i===1?[c.benefits[1],c.benefits[2]]:[c.benefits[3]]).map(b=>'<h3>'+esc(b.title)+'</h3><p>'+esc(b.body)+'</p><p class="story-look"><strong>見るポイント</strong>'+esc(b.point)+'</p>').join('')+'<h3>操作の流れ</h3><p>'+esc(s.body)+'</p>'+(i===1?'<p>下書きから試す場合は「サンプルで試す」から日報サンプルを選びます。スマートフォンでは「体験をはじめる」から進みます。</p>':'')+link(s.path,i===0?'写真整理を試す':i===1?'下書きから試す':'管理側の画面を見る')+'</div></details>').join('')+'</section>'
+ + '<section class="story-section story-conditions"><h2>体験について</h2><p class="story-section-lead">用意された写真・文章を使うサンプルです。<br>提出・通知・催促はデモ内の体験で、実際の送信やサーバー保存は行いません。</p><details class="story-disclosure"><summary>体験の範囲と、写真を使う際の注意</summary><div class="story-disclosure-body">'+list(c.conditions)+'</div></details></section>'
+ + '<section class="story-closing"><p class="story-eyebrow">自社の仕事に、置き換えてみる</p><h2>毎日の記録を、<br>もう少し軽く。</h2><p>毎回書く項目、聞き直しが多い項目。<br>どの作業を変えたいか、試しながら考えてみませんか。</p>'+link('/photo','写真整理から体験する','story-button')+'<details class="story-disclosure"><summary>自社で使うときに考えたいこと</summary><div class="story-disclosure-body"><p>'+esc(c.closing)+'</p>'+link('','建設デモの入口を見る')+'</div></details></section>'
+ + '<nav class="story-section story-related" aria-label="関連する建設デモ"><h2>ほかの建設業務も見る</h2><button type="button" data-goto="field-dandori"><span>電気工事の段取り<small>現場の準備を整える</small></span><span aria-hidden="true">→</span></button><button type="button" data-goto="contractor-matching"><span>協力業者の選定<small>工事に合う業者を探す</small></span><span aria-hidden="true">→</span></button></nav></article>'
 }

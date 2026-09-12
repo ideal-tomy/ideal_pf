@@ -108,6 +108,8 @@
 
 ## 5. 何から作り込むか
 
+指定したデモ本体の磨きは、[demo-ux-brushup-playbook.md](demo-ux-brushup-playbook.md) に従う（3分体験の固定 → 1フェーズずつ実装 → 最後に紹介文を同期）。
+
 ### 第1段階：掲載候補の実操作確認
 
 最初に construction-record、customer-support、shift を確認する。代表入力、結果、初期化・再体験の手順を記録し、説明文と画面が一致したものから主力として整える。新機能を広げる前に、今ある体験の価値を確かめる。
