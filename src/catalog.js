@@ -3,7 +3,7 @@ import { storyImages } from './story-images.js'
 
 // 一覧用の短いコピーと画像の焦点位置。詳細原稿とは独立して編集する。
 export const catalogCopy = {
- 'construction-record':['現場写真から報告書へ','写真整理から下書き、管理側の確認まで。',0,'50%','/images/demos/construction-record/001.png'],
+ 'construction-record':['現場写真から報告書へ','写真整理から下書き、管理側の確認まで。',0,'top','/images/demos/construction-record/01.jpg',true],
  'field-dandori':['現場の段取りを組み立てる','申請・人員・書類の準備を見渡す。',0,'42%'],
  'contractor-matching':['協力業者を比べる','候補のスコアと選定の材料を確認。',0,'44%'],
  'quality-incident':['品質トラブルの対応を追う','発見から原因候補、是正・承認へ。',0,'34%'],
@@ -34,14 +34,14 @@ export const catalogCopy = {
 }
 
 export function catalogCard(d, esc) {
- const [title,description,index=0,position='top',image]=catalogCopy[d.id] || [d.plain,d.one]
+ const [title,description,index=0,position='top',image,portrait]=catalogCopy[d.id] || [d.plain,d.one]
  const images=(d.shots || []).filter(s=>s.image)
  const source=images.length?images:(storyImages[d.id] || [])
  const shot=source[index] || source[0]
  const cat=CATEGORIES.find(c=>c.id===d.category)
  const illustration=`/images/catalog/${d.id}.svg`
- return `<button type="button" class="catalog-card" data-id="${esc(d.id)}" aria-label="${esc(title)}の詳細を見る">
-   <span class="catalog-art" style="--catalog-color:${esc(cat?.bg || '#40304e')}"><img src="${esc(image || shot?.image || illustration)}" alt="${esc(shot?.cap || shot?.label || title+'の流れのイメージ')}" loading="lazy" width="800" height="600" style="object-position:center ${esc(position)}"><span class="catalog-art-fallback" aria-hidden="true">${ICON[d.icon] || ICON.doc}</span>${!shot?'<span class="catalog-image-label">流れのイメージ</span>':''}<span class="catalog-open" aria-hidden="true">↗</span><span class="catalog-card-body"><span class="catalog-title">${esc(title)}</span><span class="catalog-description">${esc(description)}</span></span></span>
+ return `<button type="button" class="catalog-card${portrait?' catalog-card-portrait':''}" data-id="${esc(d.id)}" aria-label="${esc(title)}の詳細を見る">
+   <span class="catalog-art" style="--catalog-color:${esc(cat?.bg || '#40304e')}"><span class="catalog-device"><img src="${esc(image || shot?.image || illustration)}" alt="${esc(shot?.cap || shot?.label || title+'の流れのイメージ')}" loading="lazy" width="800" height="600" style="object-position:center ${esc(position)}"></span><span class="catalog-art-fallback" aria-hidden="true">${ICON[d.icon] || ICON.doc}</span>${!shot?'<span class="catalog-image-label">流れのイメージ</span>':''}<span class="catalog-open" aria-hidden="true">↗</span><span class="catalog-card-body"><span class="catalog-title">${esc(title)}</span><span class="catalog-description">${esc(description)}</span></span></span>
  </button>`
 }
 
