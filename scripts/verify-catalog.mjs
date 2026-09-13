@@ -9,7 +9,7 @@ await page.setViewportSize({width,height:844});await page.goto('http://127.0.0.1
 assert.equal(await page.locator('.catalog-shelf').count(),8);assert.equal(await page.locator('.catalog-card').count(),28);
 assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
 await page.locator('.catalog-card img').evaluateAll(imgs=>Promise.all(imgs.map(i=>{i.loading='eager';return i.decode()})));
-const copies=await page.locator('.catalog-description').evaluateAll(es=>es.map(e=>({height:e.getBoundingClientRect().height,line:parseFloat(getComputedStyle(e).lineHeight)})));assert(copies.every(c=>c.height<=c.line*2+.5));
+const titles=await page.locator('.catalog-title').evaluateAll(es=>es.map(e=>{const cs=getComputedStyle(e);const line=parseFloat(cs.lineHeight);return{height:e.getBoundingClientRect().height,line,min:parseFloat(cs.minHeight)};}));assert(titles.every(t=>t.height>=t.line*2-0.5&&t.height<=t.line*2+1));assert.equal(await page.locator('.catalog-description').count(),0);
 if(width===390||width===1280){await page.screenshot({path:`docs/catalog-review/catalog-${width}.png`});await page.locator('[aria-labelledby="shelf-title-factory"]').scrollIntoViewIfNeeded();await page.screenshot({path:`docs/catalog-review/factory-${width}.png`});}
 console.log('layout',width,'passed');}
 await page.setViewportSize({width:390,height:844});await page.goto('http://127.0.0.1:4173/?view=all');

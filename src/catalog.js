@@ -35,14 +35,14 @@ export const catalogCopy = {
 }
 
 export function catalogCard(d, esc) {
- const [title,description,index=0,position='top',image]=catalogCopy[d.id] || [d.plain,d.one]
+ const [title,,index=0,position='top',image]=catalogCopy[d.id] || [d.plain,d.one]
  const images=(d.shots || []).filter(s=>s.image)
  const source=images.length?images:(storyImages[d.id] || [])
  const shot=source[index] || source[0]
  const cat=CATEGORIES.find(c=>c.id===d.category)
  const illustration=`/images/catalog/${d.id}.svg`
  return `<button type="button" class="catalog-card" data-id="${esc(d.id)}" aria-label="${esc(title)}の詳細を見る">
-   <span class="catalog-art" style="--catalog-color:${esc(cat?.bg || '#40304e')}"><span class="catalog-device"><img src="${esc(image || shot?.image || illustration)}" alt="${esc(shot?.cap || shot?.label || title+'の流れのイメージ')}" loading="lazy" width="800" height="600" style="object-position:center ${esc(position)}"></span><span class="catalog-art-fallback" aria-hidden="true">${ICON[d.icon] || ICON.doc}</span>${!(image || shot)?'<span class="catalog-image-label">流れのイメージ</span>':''}<span class="catalog-open" aria-hidden="true">↗</span><span class="catalog-card-body"><span class="catalog-title">${esc(title)}</span><span class="catalog-description">${esc(description)}</span></span></span>
+   <span class="catalog-art" style="--catalog-color:${esc(cat?.bg || '#40304e')}"><span class="catalog-device"><img src="${esc(image || shot?.image || illustration)}" alt="${esc(shot?.cap || shot?.label || title+'の流れのイメージ')}" loading="lazy" width="800" height="600" style="object-position:center ${esc(position)}"></span><span class="catalog-art-fallback" aria-hidden="true">${ICON[d.icon] || ICON.doc}</span>${!(image || shot)?'<span class="catalog-image-label">流れのイメージ</span>':''}<span class="catalog-open" aria-hidden="true">↗</span><span class="catalog-card-body"><span class="catalog-title">${esc(title)}</span></span></span>
  </button>`
 }
 

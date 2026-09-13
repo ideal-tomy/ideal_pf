@@ -34,13 +34,14 @@ try {
   });
   assert.equal(await p.locator('.catalog-card').count(), 28);
   assert.equal(await p.locator('.catalog-status').count(), 0);
+  assert.equal(await p.locator('.catalog-description').count(), 0);
   assert.equal(m.card, m.art);
   assert.equal(m.bodyPos, 'absolute');
   assert(m.bodyZ === '2');
   assert(String(m.backdrop).includes('blur'));
   assert(parseFloat(m.borderTop) > 0);
   assert(m.padTop <= 18);
-  assert(m.ratio > 0.27 && m.ratio < 0.33, JSON.stringify(m));
+  assert(m.ratio > 0.18 && m.ratio < 0.26, JSON.stringify(m));
   assert(m.ratios.every(r => Math.abs(r - m.ratio) < 0.01), JSON.stringify(m));
   assert.deepEqual(errs, []);
   await p.screenshot({path: 'docs/catalog-review/catalog-overlay-390.png'});
