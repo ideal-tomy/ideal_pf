@@ -13,6 +13,11 @@ try {
     const body = e.querySelector('.catalog-card-body');
     const img = e.querySelector('img');
     const cs = getComputedStyle(body);
+    const ratios = [...document.querySelectorAll('.catalog-card')].slice(0, 8).map(card => {
+      const h = card.getBoundingClientRect().height;
+      const bh = card.querySelector('.catalog-card-body').getBoundingClientRect().height;
+      return bh / h;
+    });
     return {
       card: e.getBoundingClientRect().height,
       art: a.getBoundingClientRect().height,
@@ -22,7 +27,9 @@ try {
       backdrop: cs.backdropFilter || cs.webkitBackdropFilter,
       borderTop: cs.borderTopWidth,
       padTop: parseFloat(cs.paddingTop),
-      img: img.getBoundingClientRect().height
+      img: img.getBoundingClientRect().height,
+      ratio: body.getBoundingClientRect().height / e.getBoundingClientRect().height,
+      ratios
     };
   });
   assert.equal(await p.locator('.catalog-card').count(), 28);
@@ -33,7 +40,8 @@ try {
   assert(String(m.backdrop).includes('blur'));
   assert(parseFloat(m.borderTop) > 0);
   assert(m.padTop <= 18);
-  assert(m.body / m.card < 0.42, JSON.stringify(m));
+  assert(m.ratio > 0.27 && m.ratio < 0.33, JSON.stringify(m));
+  assert(m.ratios.every(r => Math.abs(r - m.ratio) < 0.01), JSON.stringify(m));
   assert.deepEqual(errs, []);
   await p.screenshot({path: 'docs/catalog-review/catalog-overlay-390.png'});
   await p.setViewportSize({width: 1280, height: 844});

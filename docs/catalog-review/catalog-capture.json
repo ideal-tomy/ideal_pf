@@ -1,0 +1,101 @@
+{
+  "capturedAt": "2026-09-13T10:36:51.736Z",
+  "results": [
+    {
+      "id": "field-dandori",
+      "ok": true,
+      "bytes": 131078,
+      "url": "https://rainbow-tarsier-5ce845.netlify.app/"
+    },
+    {
+      "id": "contractor-matching",
+      "ok": true,
+      "bytes": 118095,
+      "url": "https://hookapp-demo.vercel.app/"
+    },
+    {
+      "id": "product-flow-mfg",
+      "ok": true,
+      "bytes": 87524,
+      "url": "https://product-flow-jet.vercel.app/manufacturing"
+    },
+    {
+      "id": "approval-inspection",
+      "ok": true,
+      "bytes": 146586,
+      "url": "https://approval-diagram.vercel.app/"
+    },
+    {
+      "id": "cause-demo",
+      "ok": true,
+      "bytes": 127322,
+      "url": "https://cause-demo.vercel.app/"
+    },
+    {
+      "id": "childcare",
+      "ok": true,
+      "bytes": 97315,
+      "url": "https://ideal-tomy.github.io/childcare_demo/"
+    },
+    {
+      "id": "voice-karte-simple",
+      "ok": true,
+      "bytes": 42594,
+      "url": "https://lambent-smakager-7bcf0a.netlify.app/"
+    },
+    {
+      "id": "kaigo-3role",
+      "ok": true,
+      "bytes": 123790,
+      "url": "https://kaigo-operation-demo.vercel.app/experience/kaigo-care-dx"
+    },
+    {
+      "id": "disaster-facility",
+      "ok": true,
+      "bytes": 194271,
+      "url": "https://disaster-prevention-demo.vercel.app/"
+    },
+    {
+      "id": "gym-facility",
+      "ok": true,
+      "bytes": 148131,
+      "url": "https://disaster-prevention-demo02.vercel.app/"
+    },
+    {
+      "id": "chiiki-bunka",
+      "ok": true,
+      "bytes": 122715,
+      "url": "https://chiiki-demo-site.vercel.app/"
+    },
+    {
+      "id": "shikomi-record",
+      "ok": true,
+      "bytes": 93189,
+      "url": "https://shikomi-record-demo.vercel.app/"
+    },
+    {
+      "id": "haken-dash",
+      "ok": true,
+      "bytes": 97360,
+      "url": "https://haken-dash.vercel.app/candidates"
+    },
+    {
+      "id": "sfa-legal",
+      "ok": true,
+      "bytes": 123453,
+      "url": "https://sfa-legal.vercel.app/"
+    },
+    {
+      "id": "vietnam-haken",
+      "ok": true,
+      "bytes": 75655,
+      "url": "https://vietnam-demo-zeta.vercel.app/"
+    },
+    {
+      "id": "internal-knowledge",
+      "ok": true,
+      "bytes": 74282,
+      "url": "https://internal-knowledge-demo.vercel.app/"
+    }
+  ]
+}
