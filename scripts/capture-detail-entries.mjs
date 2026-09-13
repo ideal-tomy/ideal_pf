@@ -1,0 +1,7 @@
+import {chromium} from 'playwright';
+import fs from 'node:fs/promises';
+import {DEMOS} from '../src/data.js';
+const jobs=DEMOS.filter(d=>d.linkState==='available'&&/^https:/.test(d.url)&&!d.shots.some(s=>s.image));
+await fs.mkdir('docs/detail-rollout',{recursive:true});
+const browser=await chromium.launch({headless:true,channel:'msedge'});const results=[];
+try{let cursor=0;await Promise.all(Array.from({length:3},async()=>{while(cursor<jobs.length){const d=jobs[cursor++];const page=await browser.newPage({viewport:{width:390,height:844},deviceScaleFactor:1});try{const response=await page.goto(d.url,{waitUntil:'domcontentloaded',timeout:25000});await page.waitForTimeout(1800);const body=(await page.locator('body').innerText()).slice(0,12000);const status=response?.status();const okay=status<400&&!/DEPLOYMENT_NOT_FOUND|This deployment has been paused|Vercel Authentication/.test(body);if(okay){await fs.mkdir(`public/images/demos/${d.id}`,{recursive:true});await page.screenshot({path:`public/images/demos/${d.id}/entry.jpg`,type:'jpeg',quality:82});}results.push({id:d.id,url:d.url,finalUrl:page.url(),status,okay,body});console.log(d.id,status,body.slice(0,150).replaceAll('\n',' / '));}catch(e){results.push({id:d.id,url:d.url,okay:false,error:e.message});console.log(d.id,e.message.slice(0,160));}finally{await page.close();}}}));}finally{await browser.close();await fs.writeFile('docs/detail-rollout/source-audit.json',JSON.stringify(results,null,2));}

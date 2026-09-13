@@ -44,15 +44,17 @@
     </button>
   </section>
 
-  <section class="view" id="v-all">
+  <section class="view" id="v-all" aria-labelledby="catalogTitle">
+    <div class="catalog-intro"><div><p class="catalog-eyebrow">ideal / DEMO COLLECTION</p><h1 id="catalogTitle">デモを探す</h1><p>あなたの仕事に近い画面から。</p></div></div>
     <div class="search-wrap">
       <label class="sr-only" for="q">デモを検索</label>
       <input type="search" id="q" class="search" placeholder="タイトル・用途で探す" autocomplete="off">
     </div>
+    <div class="catalog-categories" id="catalogCategories" aria-label="業種で絞り込む"></div>
     <div class="filter-bar" id="filterBar"></div>
-    <div class="sec-lb" id="allLabel">すべてのデモ</div>
-    <div class="list" id="allList"></div>
-    <div class="empty hide" id="allEmpty">該当するデモがありません。条件を外してやり直してください。</div>
+    <div class="sec-lb" id="allLabel" role="status" aria-live="polite">すべてのデモ</div>
+    <div class="catalog-shelves" id="allList"></div>
+    <div class="empty hide" id="allEmpty"><strong>該当するデモがありません</strong><p>別のキーワードや業種で探してみてください。</p><button type="button" class="chip-filter" data-clear="all">条件をすべて解除</button></div>
   </section>
 
   <section class="view" id="v-cat">

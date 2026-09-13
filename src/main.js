@@ -1,5 +1,6 @@
 import './style.css'
-import { buildConstructionDetail } from './construction-story.js'
+import { catalogShelves, catalogCopy } from './catalog.js'
+import { buildDemoStory, hasStory } from './demo-story.js'
 import {
   ICON, SCR, CATEGORIES, DEMOS,
   featuredDemos, listedDemos, getDemoById,
@@ -153,20 +154,40 @@ var state = {
   demoId: null
 }
 var lastFocus = null
+var detailOriginScroll = 0
 var defaultTitle = document.title
+var catalogKey = null
+var catalogMemory = new Map()
+var catalogOriginId = null
+function filterKey() { return JSON.stringify([state.category, state.query]) }
+function rememberCatalog() {
+  if (state.view !== 'v-all' || state.demoId) return
+  var shelves = {}
+  document.querySelectorAll('.catalog-track').forEach(function (track) { shelves[track.dataset.category] = track.scrollLeft })
+  catalogMemory.set(filterKey(), { y: window.scrollY, shelves: shelves })
+}
+function updateShelfArrows() {
+  document.querySelectorAll('.catalog-track').forEach(function (track) {
+    var buttons = track.closest('.catalog-shelf').querySelectorAll('[data-direction]')
+    buttons[0].disabled = track.scrollLeft < 2
+    buttons[1].disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2
+  })
+}
 
-function setConstructionBackground(inert) {
+function setDetailBackground(inert) {
   document.querySelectorAll('body > :not(#detail):not(script)').forEach(function (el) {
     el.inert = inert
   })
 }
 
 function dismissDetail() {
-  if (state.demoId === 'construction-record') {
+  if (state.view === 'v-all' || hasStory(getDemoById(state.demoId))) {
+    var closingId = catalogOriginId || state.demoId
     closeDetail({ skipUrl: true })
-    showView('v-all', { replace: true })
-    var card = document.querySelector('#allList [data-id="construction-record"]')
-    if (card) card.focus()
+    showView('v-all', { replace: true, keepScroll: true })
+    window.scrollTo(0, detailOriginScroll)
+    var card = document.querySelector('#allList [data-id="' + closingId + '"]')
+    if (card) card.focus({ preventScroll: true })
   } else history.back()
 }
 
@@ -197,7 +218,10 @@ function setTabHighlight(viewId) {
 
 function showView(viewId, opts) {
   opts = opts || {}
+  if (!state.demoId && state.view === 'v-all' && viewId !== 'v-all') rememberCatalog()
   state.view = viewId
+  document.body.classList.toggle('catalog-mode', viewId === 'v-all')
+  fitHeader()
   document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('on') })
   var el = document.getElementById(viewId)
   if (el) el.classList.add('on')
@@ -207,7 +231,7 @@ function showView(viewId, opts) {
   else setTabHighlight(viewId)
   if (!opts.keepScroll) window.scrollTo(0, 0)
   watch(el || document)
-  if (viewId === 'v-all') renderAllList()
+  if (viewId === 'v-all') renderAllList(opts)
   if (!opts.skipUrl) syncUrl(!!opts.replace)
   if (!reduce) requestAnimationFrame(onScroll)
 }
@@ -240,60 +264,42 @@ function updateTileHighlight() {
 
 function updateFilterBar() {
   var bar = document.getElementById('filterBar')
-  var label = document.getElementById('allLabel')
-  if (!state.category && !state.query) {
-    bar.innerHTML = ''
-    label.textContent = 'すべてのデモ（' + countListed() + '）'
-    return
-  }
-  var parts = []
-  if (state.category) {
-    parts.push('<button type="button" class="chip-filter" data-clear="cat">' + esc(categoryLabel(state.category)) + ' ×</button>')
-  }
-  if (state.query) {
-    parts.push('<button type="button" class="chip-filter" data-clear="q">「' + esc(state.query) + '」×</button>')
-  }
-  parts.push('<button type="button" class="chip-filter chip-clear" data-clear="all">すべて解除</button>')
-  bar.innerHTML = parts.join('')
-  label.textContent = '絞り込み結果'
+  document.getElementById('catalogCategories').innerHTML = [{id:'',label:'すべて'}].concat(CATEGORIES).map(function (c) {
+    return '<button type="button" class="catalog-category" data-catalog-category="'+esc(c.id)+'" aria-pressed="'+String((state.category || '')===c.id)+'">'+esc(c.label)+'</button>'
+  }).join('')
+  bar.innerHTML = state.query ? '<button type="button" class="chip-filter" data-clear="q">検索：'+esc(state.query)+' ×</button>' : ''
 }
 
 function matchesFilter(d) {
-  if (state.category) {
-    var tileMatch = TILES.some(function (t) { return t.id === state.category })
-    if (tileMatch) {
-      if (d.tile !== state.category) return false
-    } else if (d.category !== state.category) return false
-  }
+  if (state.category && d.category !== state.category) return false
   if (state.query) {
     var q = state.query.toLowerCase()
-    var hay = [d.plain, d.lead, d.one, d.audience, categoryLabel(d.category)].concat(d.tags || []).join(' ').toLowerCase()
+    var hay = [d.plain, d.lead, d.one, d.audience, categoryLabel(d.category)].concat(catalogCopy[d.id]?.slice(0,2) || []).concat(d.tags || []).join(' ').toLowerCase()
     if (hay.indexOf(q) === -1) return false
   }
   return true
 }
 
-function renderAllList() {
-  var list = listedDemos().filter(matchesFilter)
+function renderAllList(opts) {
+  opts = opts || {}
+  var demos = listedDemos().filter(matchesFilter)
   var box = document.getElementById('allList')
   var empty = document.getElementById('allEmpty')
-  if (!list.length) {
-    box.innerHTML = ''
-    empty.classList.remove('hide')
-    return
+  var key = filterKey()
+  empty.classList.toggle('hide', demos.length > 0)
+  var count = new Set(demos.map(function(d) { return d.category })).size
+  document.getElementById('allLabel').textContent = (state.query ? '検索結果：' : '') + count + '業種・' + demos.length + '件'
+  updateFilterBar()
+  if (key !== catalogKey) {
+    box.innerHTML = catalogShelves(demos,esc)
+    catalogKey = key
   }
-  empty.classList.add('hide')
-  box.innerHTML = list.map(function (d) {
-    var cat = CATEGORIES.find(function (c) { return c.id === d.category })
-    var bg = cat ? cat.bg : '#241d33'
-    return '<button type="button" class="item rv" data-id="' + esc(d.id) + '">'
-      + '<span class="th" style="background:' + esc(bg) + '">' + (ICON[d.icon] || ICON.doc) + '</span>'
-      + '<span class="item-body"><span class="tt">' + esc(d.plain) + '</span>'
-      + '<span class="cc">' + esc(categoryLabel(d.category)) + ' · ' + esc(d.audience || '') + '</span>'
-      + '<span class="item-badges">' + badgeHtml(d) + '</span></span>'
-      + '<span class="go">›</span></button>'
-  }).join('')
-  watch(box)
+  var saved = catalogMemory.get(key)
+  if (opts.keepScroll && saved) {
+    box.querySelectorAll('.catalog-track').forEach(function(track) { track.scrollLeft = saved.shelves[track.dataset.category] || 0 })
+    window.scrollTo(0,saved.y)
+  }
+  requestAnimationFrame(updateShelfArrows)
 }
 
 /* ---------- detail ---------- */
@@ -310,7 +316,7 @@ function openCta(d) {
 }
 
 function buildDetail(d) {
-  if (d.id === 'construction-record') return buildConstructionDetail(d, esc)
+  if (hasStory(d)) return buildDemoStory(d, esc)
   var meta = []
   meta.push({ k:'業種', v: categoryLabel(d.category).split('・')[0], s: categoryLabel(d.category) })
   if (d.audience) meta.push({ k:'使う人', v: d.audience.split('と')[0].split('・')[0], s: d.audience })
@@ -362,11 +368,16 @@ function openDetail(id, opts) {
     showView('v-all', { replace: true })
     return
   }
-  lastFocus = document.activeElement
+  if (!state.demoId) {
+    rememberCatalog()
+    catalogOriginId = state.view === 'v-all' ? id : null
+    lastFocus = document.activeElement
+    detailOriginScroll = state.view === 'v-all' ? window.scrollY : 0
+  }
   state.demoId = id
-  setConstructionBackground(id === 'construction-record')
-  document.title = id === 'construction-record' ? d.plain + ' | ideal' : defaultTitle
-  dIn.classList.toggle('d-in-story', id === 'construction-record')
+  setDetailBackground(hasStory(d) || state.view === 'v-all')
+  document.title = hasStory(d) ? d.plain + ' | ideal' : defaultTitle
+  dIn.classList.toggle('d-in-story', hasStory(d))
   dIn.innerHTML = buildDetail(d)
   detail.scrollTop = 0
   detail.classList.add('open')
@@ -380,17 +391,32 @@ function closeDetail(opts) {
   opts = opts || {}
   detail.classList.remove('open')
   document.body.classList.remove('lock')
-  setConstructionBackground(false)
+  setDetailBackground(false)
   document.title = defaultTitle
   state.demoId = null
   if (!opts.skipUrl) syncUrl(!!opts.replace)
-  if (lastFocus && lastFocus.focus) {
+  if (lastFocus && lastFocus.isConnected && !detail.contains(lastFocus) && lastFocus.focus) {
     try { lastFocus.focus() } catch (e) {}
   }
   lastFocus = null
 }
 
 /* ---------- events ---------- */
+document.getElementById('allList').addEventListener('scroll', function(e) {
+  if (e.target.matches('.catalog-track')) { rememberCatalog(); updateShelfArrows() }
+}, true)
+window.addEventListener('resize', updateShelfArrows)
+document.getElementById('allList').addEventListener('error', function(e) {
+  if (e.target.tagName === 'IMG') { e.target.hidden = true; e.target.closest('.catalog-art').classList.add('image-failed') }
+}, true)
+detail.addEventListener('error', function (event) {
+  if (event.target.matches('.story-preview-card img')) {
+    var replacement = document.createElement('div')
+    replacement.className = 'story-image-missing'
+    replacement.textContent = event.target.alt + '：画像を読み込めませんでした。'
+    event.target.replaceWith(replacement)
+  }
+}, true)
 document.getElementById('openAll').addEventListener('click', function () {
   state.category = null
   state.query = ''
@@ -402,6 +428,19 @@ document.getElementById('openAll').addEventListener('click', function () {
 })
 
 document.addEventListener('click', function (e) {
+  var category = e.target.closest('[data-catalog-category]')
+  if (category) {
+    rememberCatalog()
+    setCategory(category.dataset.catalogCategory || null)
+    document.querySelector('[data-catalog-category="' + (state.category || '') + '"]').focus({preventScroll:true})
+    return
+  }
+  var arrow = e.target.closest('[data-shelf][data-direction]')
+  if (arrow) {
+    var track = document.getElementById('shelf-' + arrow.dataset.shelf)
+    track.scrollBy({left: Number(arrow.dataset.direction) * track.clientWidth * .85, behavior: reduce ? 'instant' : 'smooth'})
+    return
+  }
   var storyJump = e.target.closest('[data-story-scroll]')
   if (storyJump) {
     var section = document.getElementById(storyJump.dataset.storyScroll)
@@ -479,6 +518,12 @@ document.querySelectorAll('.tab').forEach(function (t) {
 })
 
 document.addEventListener('keydown', function (e) {
+  if (e.key === 'Tab' && state.demoId && (hasStory(getDemoById(state.demoId)) || state.view === 'v-all')) {
+    var focusable = Array.from(detail.querySelectorAll('a[href],button,summary,[tabindex="0"]')).filter(function (el) { return el.getClientRects().length > 0 && !el.closest('details:not([open]) .story-disclosure-body') })
+    var first = focusable[0], last = focusable[focusable.length - 1]
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
+  }
   if (e.key === 'Escape' && state.demoId) {
     e.preventDefault()
     dismissDetail()
@@ -503,7 +548,7 @@ window.addEventListener('popstate', function (ev) {
     if (qInput) qInput.value = state.query
     updateTileHighlight()
     updateFilterBar()
-    showView(state.view, { skipUrl: true, replace: true })
+    showView(state.view, { skipUrl: true, replace: true, keepScroll: state.view === 'v-all' })
   } else {
     applyFromLocation(true)
   }

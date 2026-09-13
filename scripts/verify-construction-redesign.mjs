@@ -17,7 +17,7 @@ if(width<701) assert(await gallery.evaluate(e=>e.scrollLeft>0));
 const summary=page.locator('summary').filter({hasText:'下書きを確認・修正する'});await summary.click();assert(await summary.evaluate(e=>e.parentElement.open));
 assert(await page.getByText('提出前に確認し、修正の手戻りを減らす工夫を知る',{exact:true}).isVisible());
 await summary.press('Enter');assert(!(await summary.evaluate(e=>e.parentElement.open)));
-await page.locator('[data-goto="field-dandori"]').click();assert(!(await page.locator('#detail .construction-story').count()));
+await page.locator('[data-goto="field-dandori"]').click();assert.equal(new URL(page.url()).searchParams.get('demo'),'field-dandori');
 await page.goto('http://127.0.0.1:4173/?demo=construction-record');await page.locator('#dBack').click();assert(new URL(page.url()).searchParams.get('view')==='all');
 console.log(width,metrics,'interactions passed');
 }

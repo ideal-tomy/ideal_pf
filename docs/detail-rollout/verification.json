@@ -1,0 +1,469 @@
+{
+  "targets": 21,
+  "excluded": 7,
+  "results": [
+    {
+      "id": "construction-record",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "customer-support",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "shift",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "quality-incident",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 483,
+      "passed": true
+    },
+    {
+      "id": "kaigo-handoff",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "internal-knowledge",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "product-flow-mfg",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 483,
+      "passed": true
+    },
+    {
+      "id": "contractor-matching",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "approval-inspection",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "shikomi-record",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "childcare",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "disaster-facility",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "gym-facility",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 483,
+      "passed": true
+    },
+    {
+      "id": "voice-karte-simple",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "cause-demo",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 483,
+      "passed": true
+    },
+    {
+      "id": "field-dandori",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "chiiki-bunka",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "haken-dash",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 483,
+      "passed": true
+    },
+    {
+      "id": "sfa-legal",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 448,
+      "passed": true
+    },
+    {
+      "id": "vietnam-haken",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 503,
+      "passed": true
+    },
+    {
+      "id": "kaigo-3role",
+      "width": 390,
+      "cardSizes": [
+        531,
+        531,
+        531
+      ],
+      "previewTop": 483,
+      "passed": true
+    },
+    {
+      "id": "construction-record",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "customer-support",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "shift",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "quality-incident",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "kaigo-handoff",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "internal-knowledge",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "product-flow-mfg",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "contractor-matching",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "approval-inspection",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "shikomi-record",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "childcare",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "disaster-facility",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "gym-facility",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "voice-karte-simple",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "cause-demo",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "field-dandori",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "chiiki-bunka",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "haken-dash",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "sfa-legal",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "vietnam-haken",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    },
+    {
+      "id": "kaigo-3role",
+      "width": 1280,
+      "cardSizes": [
+        548,
+        548,
+        548
+      ],
+      "previewTop": 461,
+      "passed": true
+    }
+  ],
+  "errors": []
+}
