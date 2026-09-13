@@ -289,7 +289,8 @@ a{color:inherit;text-decoration:none;}
 .story-number{font-size:10px;font-weight:700;letter-spacing:.07em;color:var(--story-accent);}
 .story-preview-card h3{font-size:22px;line-height:1.5;letter-spacing:-.04em;margin-top:12px;max-width:220px;}
 .story-preview-card p{font-size:11px;color:#ded6e7;margin-top:8px;}
-.story-preview-card img{display:block;width:calc(100% - 40px);height:auto;margin:0 20px;border-radius:17px 17px 0 0;border:4px solid #0d111a;box-shadow:0 10px 30px #0005;}
+/* 390×600相当の窓で上部を切り出す。説明を含めても約600px以内の密度にする。 */
+.story-preview-card img{display:block;width:calc(100% - 40px);height:auto;aspect-ratio:390 / 600;max-height:400px;object-fit:cover;object-position:center top;margin:0 20px;border-radius:17px 17px 0 0;border:4px solid #0d111a;box-shadow:0 10px 30px #0005;}
 .story-section{margin:0 32px;padding:28px 0;border-bottom:1px solid var(--line);}
 .story-section>.story-eyebrow{margin-bottom:9px;}
 .story-section-lead{font-size:13px;line-height:1.85;color:var(--story-muted);margin-top:12px;}
